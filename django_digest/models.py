@@ -1,11 +1,13 @@
 from django.contrib.auth.backends import ModelBackend
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.db.models.signals import post_save
 
 from python_digest import calculate_partial_digest
 
 from django_digest.utils import get_backend, get_setting, DEFAULT_REALM
+
+User = get_user_model()
 
 class UserNonce(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
