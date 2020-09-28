@@ -66,7 +66,7 @@ def _prepare_partial_digests(user, raw_password):
 try:
     from django.contrib.auth import get_user_model
     User = get_user_model()
-except ImportError:
+except Exception:
     from django.contrib.auth.models import User
 
 _old_set_password = User.set_password
