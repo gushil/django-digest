@@ -1,5 +1,4 @@
 from django.conf import settings
-from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import ModelBackend
 from django.db import models
 from django.db.models.signals import post_save
@@ -64,8 +63,14 @@ def _prepare_partial_digests(user, raw_password):
     password_hash = user.password
     _postponed_partial_digests[password_hash] = partial_digests
 
-_old_set_password = get_user_model().set_password
-_old_check_password = get_user_model().check_password
+try:
+    from django.contrib.auth import get_user_model
+    User = get_user_model()
+except ImportError:
+    from django.contrib.auth.models import User
+
+_old_set_password = User.set_password
+_old_check_password = User.check_password
 _old_authenticate = ModelBackend.authenticate
 
 def _review_partial_digests(user):
