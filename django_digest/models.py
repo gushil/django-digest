@@ -120,8 +120,8 @@ def _new_set_password(user, raw_password):
     _old_set_password(user, raw_password)
     _prepare_partial_digests(user, raw_password)
 
-get_user_model().check_password = _new_check_password    
-get_user_model().set_password = _new_set_password
+User.check_password = _new_check_password    
+User.set_password = _new_set_password
 ModelBackend.authenticate = _new_authenticate
 
 def _persist_partial_digests(user):
