@@ -63,7 +63,7 @@ def _prepare_partial_digests(user, raw_password):
     _postponed_partial_digests[password_hash] = partial_digests
 
 _old_set_password = get_user_model().set_password
-_old_check_password = Uget_user_model()ser.check_password
+_old_check_password = get_user_model().check_password
 _old_authenticate = ModelBackend.authenticate
 
 def _review_partial_digests(user):
